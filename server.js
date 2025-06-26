@@ -8,6 +8,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 
 const authController = require('./controllers/auth.js');
+const ingredientsController = require("./controllers/ingredient.js");
+const recipeController = require("./controllers/recipe.js");
+
 
 const port = process.env.PORT ? process.env.PORT : '4000';
 
@@ -27,6 +30,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use("/ingredients", ingredientsController);
+app.use("/recipe", recipeController);
+
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {
