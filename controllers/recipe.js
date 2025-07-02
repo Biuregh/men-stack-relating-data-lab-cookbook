@@ -19,5 +19,12 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get('/new', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/sign-in');
+    }
+    res.render('recipes/new.ejs');
+});
+
 
 module.exports = router;
