@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
-    name: {type: string,
+    name: {type: String,
          required: true
         },
-    instructions: string,
+    instructions: String,
     owner: {type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required:true

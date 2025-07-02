@@ -17,19 +17,10 @@ const recipeController = require("./controllers/recipe.js");
 const port = process.env.PORT ? process.env.PORT : '4000';
 
 mongoose.connect(process.env.MONGODB_URI);
-
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-  next();
-});
-
-app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-// app.use(morgan('dev'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -37,6 +28,12 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 app.use("/ingredients", ingredientsController);
 app.use("/recipe", recipeController);
 
