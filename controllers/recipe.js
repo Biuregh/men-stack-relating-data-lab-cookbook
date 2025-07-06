@@ -56,6 +56,22 @@ router.get("/:recipeId", async (req, res) => {
     res.redirect("/");
   }
 });
+router.delete("/:recipeId", async (req, res) => {
+  try {
+    const recipe= await Recipe.findById(req.params.recipeId);
+    if (!recipe) {
+      return res.status(404).send("Recipe not found");
+    }
+    if (!recipe.owner.equals(req.session.user._id)) {
+      return res.status(403).send("Unauthorized");
+    }
+    await recipe.deleteOne();
+    res.redirect("/recipes");
+  } catch (error) {
+    console.error(error);
+    res.redirect("/");
+  }
+});
 
 
 module.exports = router;
