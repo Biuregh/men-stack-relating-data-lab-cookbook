@@ -5,6 +5,13 @@ const Recipe = require("../models/recipe.js")
 const User = require("../models/user.js");
 const Ingredients = require("../models/ingredient.js");
 
+function requireLogin(req, res, next) {
+  if (!req.session.user) {
+    return res.redirect("/auth/sign-in");
+  }
+  next();
+}
+
 router.get("/", async (req, res) => {
     try {
         const userId = req.session.user?._id;
@@ -56,20 +63,50 @@ router.get("/:recipeId", async (req, res) => {
     res.redirect("/");
   }
 });
-router.delete("/:recipeId", async (req, res) => {
+router.delete("/:recipeId", requireLogin, async (req, res) => {
   try {
     const recipe= await Recipe.findById(req.params.recipeId);
     if (!recipe) {
       return res.status(404).send("Recipe not found");
-    }
-    if (!recipe.owner.equals(req.session.user._id)) {
-      return res.status(403).send("Unauthorized");
     }
     await recipe.deleteOne();
     res.redirect("/recipes");
   } catch (error) {
     console.error(error);
     res.redirect("/");
+  }
+});
+
+router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
+  try{
+    const recipe = await Recipe.findById(req.params.recipeId);
+    if(!recipe) {
+      return res.status(404).send("Recipe not found");
+    }
+    res.render("recipes/edit.ejs",{ recipe });
+  } catch (error){
+    console.error(error);
+    res.redirect("/");
+  }
+});
+
+router.put("/:id", requireLogin, async (req, res) => {
+  try{
+    const recipe = await Recipe.findById(req.params.id);
+    if(!recipe){
+      return res.status(404).send("Recipe not found");
+    }
+    if (req.body.name !== "") {
+      recipe.name = req.body.name;
+    }
+    if (req.body.instructions !== "") {
+      recipe.instructions = req.body.instructions;
+    }
+    await recipe.save();
+    res.redirect("/recipes");
+  }catch (error){
+    console.error(error);
+    res.redirect("/recipes");
   }
 });
 
