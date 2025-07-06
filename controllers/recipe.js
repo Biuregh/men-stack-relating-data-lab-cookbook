@@ -69,6 +69,9 @@ router.delete("/:recipeId", requireLogin, async (req, res) => {
     if (!recipe) {
       return res.status(404).send("Recipe not found");
     }
+    if (!recipe.owner.equals(req.session.user._id)) {
+      return res.status(403).send("Unauthorized");
+    }
     await recipe.deleteOne();
     res.redirect("/recipes");
   } catch (error) {
@@ -83,6 +86,9 @@ router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
     if(!recipe) {
       return res.status(404).send("Recipe not found");
     }
+    if (!recipe.owner.equals(req.session.user._id)) {
+      return res.status(403).send("Unauthorized");
+    }
     res.render("recipes/edit.ejs",{ recipe });
   } catch (error){
     console.error(error);
@@ -90,11 +96,14 @@ router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
   }
 });
 
-router.put("/:id", requireLogin, async (req, res) => {
+router.put("/:recipeId", requireLogin, async (req, res) =>{
   try{
     const recipe = await Recipe.findById(req.params.id);
     if(!recipe){
       return res.status(404).send("Recipe not found");
+    }
+    if (!recipe.owner.equals(req.session.user._id)) {
+      return res.status(403).send("Unauthorized");
     }
     if (req.body.name !== "") {
       recipe.name = req.body.name;
@@ -103,10 +112,10 @@ router.put("/:id", requireLogin, async (req, res) => {
       recipe.instructions = req.body.instructions;
     }
     await recipe.save();
-    res.redirect("/recipes");
+    res.redirect("/recipes/${recipe._id");
   }catch (error){
     console.error(error);
-    res.redirect("/recipes");
+    res.redirect("/");
   }
 });
 
