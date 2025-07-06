@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Recipe = require("../models/recipe.js")
 const User = require("../models/user.js");
-const Ingredients = require("../models/ingredient.js");
+const Ingredient = require("../models/ingredient.js");
 
 function requireLogin(req, res, next) {
   if (!req.session.user) {
@@ -27,11 +27,17 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/new", (req, res) => {
-    if (!req.session.user) {
+router.get("/new", async (req, res) => {
+    if(!req.session.user) {
         return res.redirect("/auth/sign-in");
     }
-    res.render("recipes/new.ejs");
+    try{
+      const ingredients = await Ingredient.find({});
+      res.render("recipes/new.ejs", {ingredients});
+    } catch{
+      console.error(error);
+      res.redirect("/");
+    }   
 });
 
 router.post("/", async (req, res) => {
@@ -41,6 +47,11 @@ router.post("/", async (req, res) => {
     }
     const newRecipe = new Recipe(req.body);
     newRecipe.owner = req.session.user._id;
+    if(req.body.ingredients){
+      newRecipe.ingredients= Array.isArray(req.body.ingredients)? req.body.ingredients:[req.body.ingredients];
+    }else{
+      newRecipe.ingredients=[];
+    }
     await newRecipe.save();
     res.redirect("/recipes");
   } catch (error) {
@@ -89,7 +100,8 @@ router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
     if (!recipe.owner.equals(req.session.user._id)) {
       return res.status(403).send("Unauthorized");
     }
-    res.render("recipes/edit.ejs",{ recipe });
+    const ingredients= await Ingredient.find({});
+    res.render("recipes/edit.ejs",{ recipe, ingredients });
   } catch (error){
     console.error(error);
     res.redirect("/");
@@ -110,6 +122,11 @@ router.put("/:recipeId", requireLogin, async (req, res) =>{
     }
     if (req.body.instructions !== "") {
       recipe.instructions = req.body.instructions;
+    }
+    if(req.body.ingredients){
+      recipe.ingredients= Array.isArray(req.body.ingredients)? req.body.ingredients:[req.body.ingredients];
+    }else{
+      recipe.ingredients=[];
     }
     await recipe.save();
     res.redirect("/recipes/${recipe._id");

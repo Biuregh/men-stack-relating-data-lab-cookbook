@@ -16,8 +16,14 @@
         <textarea id="instructions" name="instructions"><%= recipe.instructions %></textarea>
 
         <label for="ingredients">Ingredients:</label>
-        <textarea id="ingredients" name="ingredients"><%= recipe.ingredients %></textarea>
-
+        <select id="ingredients" name="ingredients" multiple>
+            <% ingredients.forEach(ingredient => { %>
+                <option value="<%= ingredient._id %>" 
+                    <% if (recipe.ingredients && recipe.ingredients.some(i => i.toString() === ingredient._id.toString())) { %> selected <% } %>>
+                    <%= ingredient.name %>
+                </option>
+            <% }) %>
+        </select>
         <button type="submit">Update Recipe</button>
     </form>
 </body>
