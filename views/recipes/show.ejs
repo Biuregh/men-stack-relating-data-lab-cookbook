@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <%- include("../partials/_navbar.ejs") %>
+    <h1>
+        <%= recipe.name %>
+    </h1>
+    <p><strong>Instructions:</strong></p>
+    <p>
+        <% if (recipe.instructions !=="" ) { %>
+            <p>
+                <%= recipe.instructions %>
+            </p>
+         <% } else { %>
+            <p>No instructions provided.</p>
+        <% } %>
+    </p>
+    <p><strong>Ingredients:</strong></p>
+    <p>
+        <% if (recipe.ingredients !=="" ) { %>
+            <p>
+                <%= recipe.ingredients %>
+            </p>
+        <% } else { %>
+            <p>No ingredients provided.</p>
+        <% } %>
+    </p>
+</body>
+
+</html>

@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <%- include("../partials/_navbar.ejs") %>
+    </br>
     <a href="/recipes/new">Add New Recipe</a>
     <h1>Welcome to My Recipes</h1>
     <% if (recipes.length===0) { %>
@@ -16,7 +18,7 @@
             <ul>
                 <% recipes.forEach(recipe=> { %>
                     <li>
-                        <%= recipe.name %>
+                        <a href="/recipes/<%= recipe._id %>"><%= recipe.name %></a>
                     </li>
                 <% }) %>
             </ul>

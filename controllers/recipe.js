@@ -42,5 +42,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:recipeId", async (req, res) => {
+  try {
+    const recipeId = req.params.recipeId;
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) {
+      return res.redirect("/");
+    }
+    res.locals.recipe = recipe;
+    res.render("recipes/show.ejs");
+  } catch (error) {
+    console.error(error);
+    res.redirect("/");
+  }
+});
+
 
 module.exports = router;
