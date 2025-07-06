@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use("/ingredients", ingredientsController);
-app.use("/recipe", recipeController);
+app.use("/recipes", recipeController);
 
 
 app.get('/', (req, res) => {
