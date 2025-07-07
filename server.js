@@ -12,6 +12,7 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 const authController = require('./controllers/auth.js');
 const ingredientsController = require("./controllers/ingredient.js");
 const recipeController = require("./controllers/recipe.js");
+const usersController = require('./controllers/users.js');
 
 
 const port = process.env.PORT ? process.env.PORT : '4000';
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use("/ingredients", ingredientsController);
 app.use("/recipes", recipeController);
+app.use('/users', usersController);
 
 
 app.get('/', (req, res) => {
