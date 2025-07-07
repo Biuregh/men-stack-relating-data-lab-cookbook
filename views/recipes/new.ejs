@@ -18,7 +18,10 @@
         <label for="ingredients">Ingredients:</label><br />
         <select id="ingredients" name="ingredients" multiple>
             <% ingredients.forEach(ingredient => { %>
-                <option value="<%= ingredient._id %>"><%= ingredient.name %></option>
+                    <option value="<%= ingredient._id %>" 
+                        <% if (recipe && recipe.ingredients.some(i => i.toString() === ingredient._id.toString())) { %> selected <% } %>>
+                        <%= ingredient.name %>
+                    </option>
             <% }) %>
         </select>
         <button type="submit">Create Recipe</button>

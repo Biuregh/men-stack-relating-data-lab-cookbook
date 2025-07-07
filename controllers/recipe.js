@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
         if (!userId) {
           return res.redirect("/auth/sign-in");
         }
-        const recipes = await Recipe.find({ owner: userId });
+        const recipes = await Recipe.find({ owner: userId }).populate("ingredients");
         res.locals.recipes = recipes;
         res.render("recipes/index.ejs", { recipes, currentUserId: userId });
     } catch (err) {
@@ -81,7 +81,7 @@ router.delete("/:recipeId", requireLogin, async (req, res) => {
     if (!recipe) {
       return res.status(404).send("Recipe not found");
     }
-    if (!recipe.owner.equals(req.session.user._id)) {
+    if (recipe.owner.toString() !== req.session.user._id.toString()) {
       return res.status(403).send("Unauthorized");
     }
     await recipe.deleteOne();
@@ -115,7 +115,7 @@ router.put("/:recipeId", requireLogin, async (req, res) =>{
     if(!recipe){
       return res.status(404).send("Recipe not found");
     }
-    if (!recipe.owner.equals(req.session.user._id)) {
+    if (recipe.owner.toString() !== req.session.user._id.toString()) {
       return res.status(403).send("Unauthorized");
     }
     if (req.body.name !== "") {
