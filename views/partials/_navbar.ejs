@@ -2,9 +2,10 @@
     <a href="/">Home</a>
     <% if (typeof user !=='undefined' && user) { %>
         <a href="/recipes">View my Recipes</a>
+        <a href="/ingredients">View my Ingredients</a>
         <a href="/auth/sign-out">Sign Out</a>
-        <% } else { %>
-            <a href="/auth/sign-in">Sign In</a>
-            <a href="/auth/sign-up">Sign Up</a>
-            <% } %>
+    <% } else { %>
+        <a href="/auth/sign-in">Sign In</a>
+        <a href="/auth/sign-up">Sign Up</a>
+    <% } %>
 </nav>

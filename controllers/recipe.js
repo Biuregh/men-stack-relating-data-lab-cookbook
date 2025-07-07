@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
 router.get("/:recipeId", async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
-    const recipe = await Recipe.findById(recipeId);
+    const recipe = await Recipe.findById(recipeId).populate("ingredients");
     if (!recipe) {
       return res.redirect("/");
     }
@@ -74,6 +74,7 @@ router.get("/:recipeId", async (req, res) => {
     res.redirect("/");
   }
 });
+
 router.delete("/:recipeId", requireLogin, async (req, res) => {
   try {
     const recipe= await Recipe.findById(req.params.recipeId);
@@ -97,7 +98,7 @@ router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
     if(!recipe) {
       return res.status(404).send("Recipe not found");
     }
-    if (!recipe.owner.equals(req.session.user._id)) {
+    if (recipe.owner.toString() !== req.session.user._id.toString()) {
       return res.status(403).send("Unauthorized");
     }
     const ingredients= await Ingredient.find({});
@@ -110,7 +111,7 @@ router.get("/:recipeId/edit", requireLogin, async (req, res) =>{
 
 router.put("/:recipeId", requireLogin, async (req, res) =>{
   try{
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await Recipe.findById(req.params.recipeId);
     if(!recipe){
       return res.status(404).send("Recipe not found");
     }
@@ -129,7 +130,7 @@ router.put("/:recipeId", requireLogin, async (req, res) =>{
       recipe.ingredients=[];
     }
     await recipe.save();
-    res.redirect("/recipes/${recipe._id");
+    res.redirect(`/recipes/${recipe._id}`);
   }catch (error){
     console.error(error);
     res.redirect("/");
