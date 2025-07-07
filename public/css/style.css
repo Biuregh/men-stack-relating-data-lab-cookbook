@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #faf8f4;
+    color: #4a3c31;
+    min-height: 100vh;
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+nav {
+    background-color: #fff9f2;
+    padding: 20px 30px;
+    border-radius: 12px;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(170, 140, 100, 0.15);
+}
+
+nav a {
+    color: #7a5c3d;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #f3e8d0;
+    color: #5c462a;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #5a4631;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #6b553e;
+}
+
+form {
+    padding: 30px 40px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    border: 1.5px solid #d8c9a5;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5c482f;
+    background-color: #fffefa;
+    box-shadow: inset 3px 3px 6px #e6dcb5,
+        inset -3px -3px 6px #fffef9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #bfa46f;
+    box-shadow: 0 0 8px 2px #bfa46f;
+    background-color: #fefcf6;
+}
+
+button {
+    background: #bfa46f;
+    color: #4a3c31;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 24px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(191, 164, 111, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background: #a89153;
+    box-shadow: 0 8px 30px rgba(168, 145, 83, 0.8);
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 50px;
+}
+
+li {
+    background: #fff9e6;
+    margin-bottom: 14px;
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease;
+}
+
+li:hover {
+    background: #f7f1d9;
+}
+
+a {
+    color: #7a5c3d;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #5c462a;
+}
+
+select[multiple] {
+    height: 140px;
+}
+
+form[style*="inline"] button {
+    padding: 8px 18px;
+    font-size: 1rem;
+    border-radius: 14px;
+    background-color: #b5593c;
+    box-shadow: 0 4px 15px rgba(181, 89, 60, 0.5);
+    color: white;
+}
+
+form[style*="inline"] button:hover {
+    background-color: #8e3f29;
+    box-shadow: 0 6px 20px rgba(142, 63, 41, 0.75);
+}
+
+.recipe-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #fff9e6;
+    margin-bottom: 12px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.07);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.recipe-item>a {
+    flex-grow: 1;
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #7a5c3d;
+    font-weight: 600;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.edit-btn {
+    padding: 36px 14px;
+    border-radius: 8px;
+    color: #4a3c31;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 auto;
+}
+
+.edit-btn:hover {
+    color: #a89153;
+}
+
+.delete-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background-color: #b5593c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #8e3f29;
+}
+
+select[multiple] {
+    height: 140px;
+    background-color: #fffefa;
+    color: #4a3c31;
+    border: 1.5px solid #d8c9a5;
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-shadow: inset 3px 3px 6px #e6dcb5,
+        inset -3px -3px 6px #fffef9;
+}
+
+select[multiple] option {
+    background-color: white;
+    color: #4a3c31;
+    padding: 4px 8px;
+}
+
+select[multiple] option:checked {
+    background-color: #bfa46f;
+}

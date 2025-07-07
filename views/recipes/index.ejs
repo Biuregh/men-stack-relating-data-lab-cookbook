@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Recipes</title>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <%- include("../partials/_navbar.ejs") %>
@@ -12,20 +13,22 @@
         <h1>Welcome to My Recipes</h1>
         <% if (recipes.length===0) { %>
             <p>You have no recipes yet.</p>
-            <% } else { %>
-                <ul>
-                    <% recipes.forEach(recipe=> { %>
-                        <li>
-                            <a href="/recipes/<%= recipe._id %>">
-                                <%= recipe.name %>
-                            </a>
-                            <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
+        <% } else { %>
+            <ul>
+                <% recipes.forEach(recipe=> { %>
+                    <li class="recipe-item">
+                         <a href="/recipes/<%= recipe._id %>" class="recipe-name">
+                            <%= recipe.name %>
+                        </a>
+                        <div class="btn-group">
+                            <a href="/recipes/<%= recipe._id %>/edit" class="edit-btn">Edit</a>
                             <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" style="display:inline;">
-                                <button type="submit">Delete</button>
+                                <button type="submit" class="delete-btn">Delete</button>
                             </form>
-                        </li>
-                        <% }) %>
-                </ul>
-                <% } %>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
 </body>
 </html>

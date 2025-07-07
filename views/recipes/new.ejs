@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Add New Recipe</title>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <%- include("../partials/_navbar.ejs") %>
@@ -19,7 +20,6 @@
         <select id="ingredients" name="ingredients" multiple>
             <% ingredients.forEach(ingredient => { %>
                     <option value="<%= ingredient._id %>" 
-                        <% if (recipe && recipe.ingredients.some(i => i.toString() === ingredient._id.toString())) { %> selected <% } %>>
                         <%= ingredient.name %>
                     </option>
             <% }) %>

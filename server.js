@@ -8,7 +8,6 @@ const morgan = require('morgan');
 const session = require('express-session');
 
 const isSignedIn = require('./middleware/is-signed-in.js');
-const passUserToView = require('./middleware/pass-user-to-view.js');
 const authController = require('./controllers/auth.js');
 const ingredientsController = require("./controllers/ingredient.js");
 const recipeController = require("./controllers/recipe.js");
@@ -22,6 +21,7 @@ mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
+app.use(express.static('public'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

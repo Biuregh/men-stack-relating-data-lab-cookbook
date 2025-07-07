@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <%- include('./partials/_navbar.ejs') %>
+  <%- include("./partials/_navbar.ejs") %>
   <% if (user) { %>
     <h1>Welcome to the app, <%= user.username %>!</h1>
     <p>
@@ -20,6 +20,5 @@
       <a href="/auth/sign-in">Sign in</a>.
     </p>
   <% } %>
-  <p><a href="/vip-lounge">Get into the VIP Users Only lounge!</a></p>
 </body>
 </html>
